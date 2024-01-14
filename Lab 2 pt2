@@ -1,0 +1,71 @@
+
+/**
+ * @author Andriy Pavlovych
+ * The class is meant to illustrate a couple of image-processing algorithms:
+ * three R-G-B channel extraction methods
+ */
+public class ImageFilter{
+	/**
+	 * private constructor, by design
+	 */
+	private ImageFilter() {		
+	}
+
+	//TODO create proper JavaDoc comments
+	/**
+	 * This method extracts the red channel.
+	 * @param imageData This is the first parameter to getRed method.
+	 * @param width This is the second parameter to getRed method
+	 * @return imageData This returns the image representation.
+	 */
+	public static int [] getRed(int[] imageData, int width) {
+		//TODO
+		for (int i = 0; i < imageData.length; i++) {
+			int red = imageData[i] & 0x00FF0000;
+			int green = red >> 8;
+			int blue = red >> 16;
+			int alphaCh = imageData[i] & 0xFF000000;
+			imageData[i] = red | green | blue | alphaCh;
+		} 
+		return imageData;
+	}
+
+	//TODO create proper JavaDoc comments
+	/**
+	 * This method extracts the green channel.
+	 * @param imageData This is the first parameter to getGreen method.
+	 * @param width This is the second parameter to getGreen method
+	 * @return imageData This returns the image representation.
+	 */
+	public static int [] getGreen(int[] imageData, int width) {
+		//TODO
+		for (int i = 0; i < imageData.length; i++) {
+			int green = imageData[i] & 0x0000FF00;
+			int red = green << 8;
+			int blue = green >> 8;
+			int alphaCh = imageData[i] & 0xFF000000;
+			imageData[i] = red | green | blue | alphaCh;
+		}
+		return imageData;
+	}
+
+	//TODO create proper JavaDoc comments
+	/**
+	 * This method extracts the blue channel.
+	 * @param imageData This is the first parameter to getBlue method.
+	 * @param width This is the second parameter to getBlue method
+	 * @return imageData This returns the image representation.
+	 */
+	public static int [] getBlue(int[] imageData, int width) {
+		//TODO
+		for (int i = 0; i < imageData.length; i++) {
+			int blue = imageData[i] & 0x000000FF;
+			int red = blue << 16;
+			int green = blue << 8;
+			int alphaCh = imageData[i] & 0xFF000000;
+			imageData[i] = red | green | blue | alphaCh;
+		}
+		return imageData;
+	}
+
+}
