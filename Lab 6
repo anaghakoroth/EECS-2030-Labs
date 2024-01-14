@@ -1,0 +1,212 @@
+package eecs2030.lab6;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Andriy
+ * The enumeration implements the coins and bills of the Canadian currency, from 5 cents to 100 dollars.
+ */
+public enum CAD {
+	NICKEL(0.05), DIME(0.10), QUARTER(0.25), LOONIE(1.00), TOONIE(2.00),
+	FIVE(5.00), TEN(10.00), TWENTY(20.00), FIFTY(50.00), HUNDRED(100.00);
+	
+	private final double value;
+	
+	private CAD(double value) {
+		this.value = value;
+	}
+
+	/**
+	 * @return the value of the coin or bill in dollars
+	 */
+	public double getValue() {
+		return this.value;
+	}
+
+	/**
+	 * @param list list of bills and coin enumerations
+	 * @return the total amount represented by the bills and coins in the list 
+	 */
+	public static double sum (List <CAD> list) {
+		//TODO
+		double total = 0.0;
+        for (CAD cad : list) {
+            total += cad.getValue();
+        }
+        return total;
+	}
+
+	/**
+	 * @param amount amount in dollars, for which a list of bills and coins should be created. 
+	 * @return list of bills and coins enums representing the amount, rounded to the nearest 5 cents. This list 
+	 * should be the shortest possible for the given amount.
+	 */
+	public static List <CAD> countOut (double amount) {
+		//TODO
+		amount = Math.round(amount / 0.05) * 0.05;
+		List <CAD> list = new ArrayList<>();
+		
+		while (amount >= 100.00) {
+			list.add(CAD.HUNDRED);
+			amount -= 100.00;
+		}
+		while (amount >= 50.00) {
+			list.add(CAD.FIFTY);
+			amount -= 50.00;
+		}
+		while (amount >= 20.00) {
+			list.add(CAD.TWENTY);
+			amount -= 20.00;
+		}
+		while (amount >= 10.00) {
+			list.add(CAD.TEN);
+			amount -= 10.00;
+		}
+		while (amount >= 5.00) {
+			list.add(CAD.FIVE);
+			amount -= 5.00;
+		}
+		while (amount >= 2.00) {
+			list.add(CAD.TOONIE);
+			amount -= 2.00;
+		}
+		while (amount >= 1.00) {
+			list.add(CAD.LOONIE);
+			amount -= 1.00;
+		}
+		while (amount >= 0.25) {
+			list.add(CAD.QUARTER);
+			amount -= 0.25;
+		}
+		while (amount >= 0.10) {
+			list.add(CAD.DIME);
+			amount -= 0.10;
+		}
+		while (amount >= 0.05) {
+			list.add(CAD.NICKEL);
+			amount -= 0.05;
+		}
+	
+		return list;
+	}
+
+	/**
+	 * @param amount amount in dollars, for which a list of bills and coins should be generated in a form of a string. 
+	 * @return a String listing the bills and coins that would represent the amount, rounded to the nearest 5 cents. 
+	 * This list should be the shortest possible for the given amount.
+	 * E.g., for a value of 31.53, the returned String object will be
+	 * "31.53 =
+	 * 1 twenty
+	 * 1 ten
+	 * 1 loonie
+	 * 2 quarters
+	 * 1 nickel"
+	 * Note the newline characters.
+	 */	
+	public static String countOutString (double amount) {
+		//TODO
+		List<CAD> list = countOut(amount);
+		
+		String result = String.format("%.2f =\n", amount);
+		int nickel = 0, dime = 0, quarter = 0, loonie = 0, toonie = 0,
+				five = 0, ten = 0, twenty = 0, fifty = 0, hundred = 0;
+		
+		for (CAD n : list) {
+			switch (n) {
+			case HUNDRED:
+				hundred++;
+				break;
+			case FIFTY:
+				fifty++;
+				break;
+			case TWENTY:
+				twenty++;
+				break;
+			case TEN:
+				ten++;
+				break;
+			case FIVE:
+				five++;
+				break;
+			case TOONIE:
+				toonie++;
+				break;
+			case LOONIE:
+				loonie++;
+				break;
+			case QUARTER:
+				quarter++;
+				break;
+			case DIME:
+				dime++;
+				break;
+			case NICKEL:
+				nickel++;
+				break;
+			}
+		}
+		if (hundred == 1) {
+			result += hundred + " hundred\n";
+		}
+		if (hundred > 1) {
+			result += hundred + " hundreds\n";
+		}
+		if (fifty == 1) {
+			result += fifty + " fifty\n";
+		}
+		if (fifty > 1) {
+			result += fifty + " fifties\n";
+		}
+		if (twenty == 1) {
+			result += twenty + " twenty\n";
+		}
+		if (twenty > 1) {
+			result += twenty + " twenties\n";
+		}
+		if (ten == 1) {
+			result += ten + " ten\n";
+		}
+		if (ten > 1) {
+			result += ten + " tens\n";
+		}
+		if (five == 1) {
+			result += five + " five\n";
+		}
+		if (five > 1) {
+			result += five + " fives\n";
+		}
+		if (toonie == 1) {
+			result += toonie + " toonie\n";
+		}
+		if (toonie > 1) {
+			result += toonie + " toonies\n";
+		}
+		if (loonie == 1) {
+			result += loonie + " loonie\n";
+		}
+		if (loonie > 1) {
+			result += loonie + " loonies\n";
+		}
+		if (quarter == 1) {
+			result += quarter + " quarter\n";
+		}
+		if (quarter > 1) {
+			result += quarter + " quarters\n";
+		}
+		if (dime == 1) {
+			result += dime + " dime\n";
+		}
+		if (dime > 1) {
+			result += dime + " dimes\n";
+		}
+		if (nickel == 1) {
+			result += nickel + " nickel\n";
+		}
+		if (nickel > 1) {
+			result += nickel + " nickels\n";
+		}
+		return result;
+	}
+
+}
